@@ -8,5 +8,8 @@ class Logger {
 
             });
     }
+    getLog() {
+        return fetch(`/api/getlog`)
+    }
 }
 export default Logger;

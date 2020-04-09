@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react'
+import Logger from "../services/Logging";
 const About = () => {
     const [logItems, setLogitems] = useState([]);
+    const logger = new Logger();
 
     useEffect(()=> {
-        fetch(`/api/getlog`)
-            .then(response => response.json())
+        logger.getLog().then(response => response.json())
             .then(data => {
-                let newArray = data;
-                setLogitems(newArray)
+                setLogitems(data);
             });
     }, []);
 
