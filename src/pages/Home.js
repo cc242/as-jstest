@@ -16,14 +16,18 @@ const Home = () => {
         setLocation(location);
         getWeather(location, units).then(response => response.json())
             .then(data => {
-                setWeather(data.weather[0].icon);
-                setTemperature(data.main.temp+'°');
-                /**]
-                 * update log
-                 */
-                logger(location, data.weather[0].main, data.main.temp+'°').then((r)=> {
-                    console.log('logger response', r.ok);
-                });
+                if (data.cod == "200") {
+                    setWeather(data.weather[0].icon);
+                    setTemperature(data.main.temp + '°');
+                    /**]
+                     * update log
+                     */
+                    logger(location, data.weather[0].main, data.main.temp + '°').then((r) => {
+                        console.log('logged ok', r.ok);
+                    });
+                } else {
+                    console.log('location not found');
+                }
             });
     };
     useEffect( () => {
