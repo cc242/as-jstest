@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
-import Logger from "../services/Logging";
+import {logger} from "../services/Logging";
+import {getWeather} from "../services/OpenWeatherAPI";
 import PixiContainer from "../components/PixiContainer";
 
 const Home = () => {
@@ -9,21 +10,20 @@ const Home = () => {
     const [temperature, setTemperature] = useState();
     const [location, setLocation] = useState();
     const [units, setUnits] = useState('metric');
-    const logger = new Logger();
     const handleSubmitWeather = (event) => {
         event.preventDefault();
         const location = locationRef.current.value;
         setLocation(location);
-        fetch(`/api/weather?location=${location}&units=${units}`)
-            .then(response => response.json())
+        getWeather(location, units).then(response => response.json())
             .then(data => {
                 setWeather(data.weather[0].icon);
                 setTemperature(data.main.temp+'°');
-
                 /**]
                  * update log
                  */
-                logger.log(location, data.weather[0].main, data.main.temp+'°');
+                logger(location, data.weather[0].main, data.main.temp+'°').then((r)=> {
+                    console.log('logger response', r.ok);
+                });
             });
     };
     useEffect( () => {
@@ -36,7 +36,6 @@ const Home = () => {
     const handleChange = (event) => {
         event.persist();
         setUnits(event.target.value)
-        console.log('change', event.target.value);
     };
 
     return (

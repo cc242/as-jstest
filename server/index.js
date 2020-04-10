@@ -48,7 +48,7 @@ app.get('/api/log', (req, res) => {
         fs.writeFile(path, JSON.stringify(previousSearches), 'utf-8', function(err) {
             if (err) throw err
             res.setHeader('Content-Type', 'application/json');
-            res.send(JSON.stringify(previousSearches.locations));
+            res.sendStatus(200);
         })
     })
 });

@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from 'react'
-import Logger from "../services/Logging";
+import {getLogs} from "../services/Logging";
+
 const About = () => {
     const [logItems, setLogitems] = useState([]);
-    const logger = new Logger();
 
     useEffect(()=> {
-        logger.getLog().then(response => response.json())
+        getLogs().then(response => response.json())
             .then(data => {
                 setLogitems(data);
             });
     }, []);
 
-    function PreviousSearchesList(props) {
+    function LogList(props) {
         const logs = props.logs;
         const listItems = logs.map((log, i) =>
             <li className="logs__entry" key={i}>
@@ -28,7 +28,7 @@ const About = () => {
     return (
         <div className="page page--about">
             <div className="logs">
-                <PreviousSearchesList logs={logItems}/>
+                <LogList logs={logItems}/>
             </div>
         </div>
     );
