@@ -96,13 +96,13 @@ const PixiContainer = (props) => {
         let sprite = PIXI.Sprite.from('/assets/cloud.png');
         let randomPos = getRandom(100);
         sprite.anchor.set(0.5);
-        sprite.position.set((renderer.screen.width/2)+randomPos, (renderer.screen.height/2)+randomPos);
+        sprite.position.set((renderer.screen.width)+randomPos, (renderer.screen.height/2)+randomPos);
         sprite.alpha = clamp(Math.random(), 0.5, 1);
         let speed = (Math.random() * 100) / 200;
         speed = clamp(speed, 0.1, 0.3);
         stage.addChild(sprite);
         ticker.add(function(delta) {
-            //sprite.x += speed * delta;
+            sprite.x += speed * delta;
             if (sprite.x > (renderer.screen.width + (sprite.width/2))) {
                 sprite.x = 0 - (sprite.width/2);
                 sprite.y = (renderer.screen.height/2)+getRandom(100);
