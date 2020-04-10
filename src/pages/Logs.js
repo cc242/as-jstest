@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {getLogs} from "../services/Logging";
 
-const About = () => {
+const Logs = () => {
     const [logItems, setLogitems] = useState([]);
 
     useEffect(()=> {
@@ -34,4 +34,4 @@ const About = () => {
     );
 };
 
-export default About;
+export default Logs;

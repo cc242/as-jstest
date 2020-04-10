@@ -4,7 +4,7 @@ import { useTransition, animated } from 'react-spring';
 import useRouter from './useRouter';
 import Navigation from './components/Navigation';
 import Home from './pages/Home';
-import About from './pages/About';
+import Logs from './pages/Logs';
 
 function App() {
   const { location } = useRouter();
@@ -20,14 +20,14 @@ function App() {
   return (
       <>
         <Navigation>
-          <NavLink to="/home">Home</NavLink>
-          <NavLink to="/about">Log</NavLink>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/logs">Log</NavLink>
         </Navigation>
         {transitions.map(({ item, props, key }) => (
             <animated.div className="wrapper" key={key} style={props}>
               <Switch location={item}>
-                <Route path="/home" component={Home} exact />
-                <Route path="/about" component={About} />
+                <Route path="/" component={Home} exact />
+                <Route path="/logs" component={Logs} />
               </Switch>
             </animated.div>
         ))}
