@@ -1,7 +1,9 @@
 import React, {useEffect, useRef} from 'react';
 import * as PIXI from "pixi.js";
 import {gsap, TweenMax} from 'gsap';
-import PixiPlugin from 'gsap/PixiPlugin'
+import PixiPlugin from 'gsap/PixiPlugin';
+import {animConfig, colourConfig} from "../config/DisplayConfig";
+
 PixiPlugin.registerPIXI(PIXI);gsap.registerPlugin(PixiPlugin);
 
 const PixiContainer = (props) => {
@@ -15,142 +17,6 @@ const PixiContainer = (props) => {
     const sunRef = useRef();
     const moonRef = useRef();
 
-    const assetConfig = {
-      colour: {
-          night: '0x0c3953',
-          day: '0x7fb5d3'
-      }
-    };
-    const animConfig = {
-        '01d': {
-            day: true,
-            sun: true,
-            clouds: 0,
-            rain: false,
-            snow: false
-        },
-        '02d': {
-            day: true,
-            sun: true,
-            clouds: 1,
-            rain: false,
-            snow: false
-        },
-        '03d': {
-            day: true,
-            sun: true,
-            clouds: 2,
-            rain: false,
-            snow: false
-        },
-        '04d': {
-            day: true,
-            sun: false,
-            clouds: 3,
-            rain: false,
-            snow: false
-        },
-        '09d': {
-            day: true,
-            sun: true,
-            clouds: 3,
-            rain: true,
-            snow: false
-        },
-        '10d': {
-            day: true,
-            sun: true,
-            clouds: 3,
-            rain: true,
-            snow: false
-        },
-        '11d': {
-            day: true,
-            sun: false,
-            clouds: 0,
-            rain: true,
-            snow: false
-        },
-        '13d': {
-            day: true,
-            sun: false,
-            clouds: 3,
-            rain: false,
-            snow: true
-        },
-        '50d': {
-            day: true,
-            sun: true,
-            clouds: 0,
-            rain: false,
-            snow: false
-        },
-        '01n': {
-            day: false,
-            sun: true,
-            clouds: 0,
-            rain: false,
-            snow: false
-        },
-        '02n': {
-            day: false,
-            sun: true,
-            clouds: 1,
-            rain: false,
-            snow: false
-        },
-        '03n': {
-            day: false,
-            sun: true,
-            clouds: 2,
-            rain: false,
-            snow: false
-        },
-        '04n': {
-            day: false,
-            sun: false,
-            clouds: 3,
-            rain: false,
-            snow: false
-        },
-        '09n': {
-            day: false,
-            sun: true,
-            clouds: 3,
-            rain: true,
-            snow: false
-        },
-        '10n': {
-            day: false,
-            sun: true,
-            clouds: 3,
-            rain: true,
-            snow: false
-        },
-        '11n': {
-            day: false,
-            sun: false,
-            clouds: 0,
-            rain: true,
-            snow: false
-        },
-        '13n': {
-            day: false,
-            sun: false,
-            clouds: 3,
-            rain: false,
-            snow: true
-        },
-        '50n': {
-            day: false,
-            sun: true,
-            clouds: 0,
-            rain: false,
-            snow: false
-        }
-    };
-
-
     useEffect(() => {
         /**
          * Using icon code from openweathermap
@@ -158,10 +24,9 @@ const PixiContainer = (props) => {
         const weatherProp = props.weather ? props.weather : '01d';
         const weather = animConfig[weatherProp];
         // hide show num clouds
-
         updateClouds(weather.clouds);
         // change the background colour for day or night, show sun or moon
-        let bgColor = weather.day ? assetConfig.colour.day : assetConfig.colour.night;
+        let bgColor = weather.day ? colourConfig.colour.day : colourConfig.colour.night;
         updateDayNight(weather.day, bgColor);
 
     }, [props.weather]);
@@ -171,7 +36,7 @@ const PixiContainer = (props) => {
         setTimeout(()=> {
             const weather = animConfig['01d'];
             updateClouds(weather.clouds);
-            let bgColor = weather.day ? assetConfig.colour.day : assetConfig.colour.night;
+            let bgColor = weather.day ? colourConfig.colour.day : colourConfig.colour.night;
             updateDayNight(weather.day, bgColor);
         }, 60)
     }, []);
@@ -256,6 +121,7 @@ const PixiContainer = (props) => {
     };
 
     const addSun = () => {
+        console.log('add sun');
         let sprite = PIXI.Sprite.from('/assets/sun.png');
         sprite.anchor.set(0.5);
         sprite.scale.set(0.5)
@@ -275,9 +141,7 @@ const PixiContainer = (props) => {
        console.log('UPDATE DAY NIGHT', bg);
        TweenMax.to(sunRef.current, 1, {alpha: day ? 1 : 0});
        TweenMax.to(moonRef.current, 1, {alpha: day ? 0 : 1});
-       // TweenMax.to(bgRef.current, 1, {pixi:{ tint: Math.random() * 0xffffff}});
         if (bgRef.current) {
-            bgRef.current.tint = 0xFFFFFF;
             TweenMax.to(bgRef.current, 0.4, {pixi:{ tint: parseInt(bg)}});
         }
     };
@@ -292,7 +156,7 @@ const PixiContainer = (props) => {
            }
         }
     };
-
+    console.log('pixi');
     return (
         <div>
             <div ref={pixiRef} className="pixi-container"></div>

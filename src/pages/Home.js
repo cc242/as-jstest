@@ -16,7 +16,7 @@ const Home = () => {
         setLocation(location);
         getWeather(location, units).then(response => response.json())
             .then(data => {
-                if (data.cod == "200") {
+                if (data.cod === 200) {
                     setWeather(data.weather[0].icon);
                     setTemperature(data.main.temp + '°');
                     /**]
