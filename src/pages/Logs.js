@@ -7,7 +7,7 @@ const Logs = () => {
     useEffect(()=> {
         getLogs().then(response => response.json())
             .then(data => {
-                setLogitems(data);
+                setLogitems(data.reverse());
             });
     }, []);
 

@@ -13,6 +13,9 @@ const PixiContainer = (props) => {
     const cloud1Ref = useRef();
     const cloud2Ref = useRef();
     const cloud3Ref = useRef();
+    const cloud4Ref = useRef();
+    const cloud5Ref = useRef();
+    const cloud6Ref = useRef();
     const cloudArray = useRef();
     const sunRef = useRef();
     const moonRef = useRef();
@@ -57,7 +60,10 @@ const PixiContainer = (props) => {
         cloud1Ref.current = addClouds();
         cloud2Ref.current = addClouds();
         cloud3Ref.current = addClouds();
-        cloudArray.current = [cloud1Ref.current, cloud2Ref.current, cloud3Ref.current];
+        cloud4Ref.current = addClouds();
+        cloud5Ref.current = addClouds();
+        cloud6Ref.current = addClouds();
+        cloudArray.current = [cloud1Ref.current, cloud2Ref.current, cloud3Ref.current, cloud4Ref.current, cloud5Ref.current, cloud6Ref.current];
 
         function resize() {
             renderer.resize(window.innerWidth, 400);
@@ -91,17 +97,15 @@ const PixiContainer = (props) => {
         let randomPos = getRandom(100);
         sprite.anchor.set(0.5);
         sprite.position.set((renderer.screen.width/2)+randomPos, (renderer.screen.height/2)+randomPos);
-        sprite.interactive = true;
-        sprite.buttonMode = true;
         sprite.alpha = clamp(Math.random(), 0.5, 1);
         let speed = (Math.random() * 100) / 200;
         speed = clamp(speed, 0.1, 0.3);
         stage.addChild(sprite);
         ticker.add(function(delta) {
-            sprite.x += speed * delta;
+            //sprite.x += speed * delta;
             if (sprite.x > (renderer.screen.width + (sprite.width/2))) {
                 sprite.x = 0 - (sprite.width/2);
-                sprite.y = (renderer.screen.height/2)+getRandom(200);
+                sprite.y = (renderer.screen.height/2)+getRandom(100);
             }
         });
         return sprite;
@@ -135,6 +139,7 @@ const PixiContainer = (props) => {
 
     const updateClouds = (num) => {
         if (!cloudArray.current) return;
+        console.log('update clouds', num);
         for (let i=0; i<cloudArray.current.length; i++) {
            if (i <= (num-1)) {
                TweenMax.to( cloudArray.current[i], 1, {alpha:  clamp(Math.random(), 0.5, 1)});

@@ -29,21 +29,21 @@ export const animConfig = {
     '04d': {
         day: true,
         sun: false,
-        clouds: 3,
+        clouds: 6,
         rain: false,
         snow: false
     },
     '09d': {
         day: true,
         sun: true,
-        clouds: 3,
+        clouds: 6,
         rain: true,
         snow: false
     },
     '10d': {
         day: true,
         sun: true,
-        clouds: 3,
+        clouds: 6,
         rain: true,
         snow: false
     },
@@ -57,7 +57,7 @@ export const animConfig = {
     '13d': {
         day: true,
         sun: false,
-        clouds: 3,
+        clouds: 6,
         rain: false,
         snow: true
     },
@@ -92,21 +92,21 @@ export const animConfig = {
     '04n': {
         day: false,
         sun: false,
-        clouds: 3,
+        clouds: 6,
         rain: false,
         snow: false
     },
     '09n': {
         day: false,
         sun: true,
-        clouds: 3,
+        clouds: 6,
         rain: true,
         snow: false
     },
     '10n': {
         day: false,
         sun: true,
-        clouds: 3,
+        clouds: 6,
         rain: true,
         snow: false
     },
@@ -120,7 +120,7 @@ export const animConfig = {
     '13n': {
         day: false,
         sun: false,
-        clouds: 3,
+        clouds: 6,
         rain: false,
         snow: true
     },
