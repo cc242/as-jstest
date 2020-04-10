@@ -51,7 +51,6 @@ const PixiContainer = (props) => {
         }, PIXI.UPDATE_PRIORITY.LOW);
         ticker.start();
 
-        addSprite();
         bgRef.current = addBackground();
         sunRef.current = addSun();
         moonRef.current = addMoon();
@@ -79,18 +78,6 @@ const PixiContainer = (props) => {
         }
     }, []);
 
-    const addSprite = () => {
-        let sprite = PIXI.Sprite.from('/assets/bunny.png');
-        sprite.anchor.set(0.5);
-        sprite.position.set(renderer.screen.width/2, renderer.screen.height/2);
-        sprite.interactive = true;
-        sprite.buttonMode = true;
-        stage.addChild(sprite);
-        ticker.add(function(delta) {
-            sprite.x += 0.1 * delta;
-        });
-    };
-
     const addBackground = () => {
         let bgGraphics = new PIXI.Graphics();
         bgGraphics.beginFill(0xFFFFFF);
@@ -101,7 +88,7 @@ const PixiContainer = (props) => {
 
     const addClouds = () => {
         let sprite = PIXI.Sprite.from('/assets/cloud.png');
-        let randomPos = getRandom(200);
+        let randomPos = getRandom(100);
         sprite.anchor.set(0.5);
         sprite.position.set((renderer.screen.width/2)+randomPos, (renderer.screen.height/2)+randomPos);
         sprite.interactive = true;
